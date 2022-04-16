@@ -1,0 +1,33 @@
+POST http://localhost:5000/login
+ Content-Type: application/json
+
+ {
+     "email": "radit267@gmail.com",
+     "password": "@Apaaja123"
+ }
+
+###
+
+DELETE http://localhost:5000/logout 
+
+###
+POST http://localhost:5000/register/admin
+ Content-Type: application/json
+
+  {
+     "email": "admin@gmail.com",
+     "password": "12345678",
+     "confPassword": "12345678"
+ }
+
+###
+POST http://localhost:5000/login/admin
+ Content-Type: application/json
+
+  {
+     "email": "admin@gmail.com",
+     "password": "12345678"
+ }
+
+###
+GET  http://localhost:5000/logout/admin
