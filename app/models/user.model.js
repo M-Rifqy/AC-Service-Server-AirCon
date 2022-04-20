@@ -58,7 +58,7 @@ module.exports = (sequelize, Sequelize) => {
                     },
                   },
         },
-        isAdmin: {
+        role: {
           type: Sequelize.STRING,
           defaultValue: 'user',
       },

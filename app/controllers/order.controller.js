@@ -1,5 +1,6 @@
 const db = require("../models");
 const Orders = db.order;
+const Users = db.users;
 
 exports.order = async (req, res) => {
     // create a book
@@ -83,7 +84,20 @@ exports.updateOrder = async (req, res) => {
 
 
 exports.getAllOrder = async (req, res) => {
-
+  const refreshToken = req.cookies.refreshToken;
+    if(!refreshToken) return res.sendStatus(401);
+        const user = await Users.findOne({
+            where:{
+                refresh_token: refreshToken
+            }
+        });
+    if(!user) return res.sendStatus(403);
+    if(user.role === "user"){
+        return res.status(404).json({
+            status: false,
+            massage: "Only admin can access"
+        })
+    }
     const order = await Orders.findAll({})
     res.status(200).send(order)
 

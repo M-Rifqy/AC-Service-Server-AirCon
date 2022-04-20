@@ -1,4 +1,6 @@
-const { check, validationResult } = require('express-validator')
+const { check, validationResult } = require('express-validator');
+const db = require("../models");
+const Users = db.users;
 
 
 exports.runValidation = async (req, res, next) => {

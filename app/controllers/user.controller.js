@@ -17,7 +17,8 @@ exports.register = async (req, res) => {
     email: req.body.email,
     password: hashPassword,
     confPassword:req.body.confPassword,
-    no_telephone: req.body.phone_number
+    no_telephone: req.body.phone_number,
+    role: req.body.role
   };
 
   // save book in the database
@@ -125,4 +126,25 @@ exports.logout = async (req, res) => {
       });
     });
     
+}
+
+
+exports.getAllUser = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+    if(!refreshToken) return res.sendStatus(401);
+        const user = await Users.findOne({
+            where:{
+                refresh_token: refreshToken
+            }
+        });
+    if(!user) return res.sendStatus(403);
+    if(user.role === "user"){
+        return res.status(404).json({
+            status: false,
+            massage: "Only admin can access"
+        })
+    }
+    const order = await Users.findAll({})
+    res.status(200).send(order)
+
 }
